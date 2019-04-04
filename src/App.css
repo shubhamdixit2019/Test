@@ -8,6 +8,13 @@
   pointer-events: none;
 }
 
+.HeadApp{
+    text-align: center;
+    color : chocolate;
+    pointer-events: none;
+    font-family: 'Prompt', sans-serif;
+  }
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
