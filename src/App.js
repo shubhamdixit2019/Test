@@ -13,19 +13,28 @@ export default class App extends Component {
     };
   }
 
-  handleSearch=( event )=>{
-      let searchedItems = [];
-         for (let itemsIterate=0; itemsIterate<this.state.items.length;itemsIterate++) {
-          if((this.state.items[itemsIterate].search((new RegExp(this.state.searchWord, "i"))))>(-1)) { //CASE INSENSITIVE SEARCH
-              searchedItems.push(this.state.items[itemsIterate]);
-             }        
-             }        
-            this.setState({ searchItems: searchedItems, searchWord: event.target.value });            
-      }
+  handleSearch = event => {
+    let searchedItems = [];
+    // es6
+    // Object constructive
+    // Object destructive
+    // const {term, items, searchWord, searchItems} = this.state; 
 
-  handleDelete=(index)=> { 
-      this.setState(this.state.items.splice(index,1));
-     
+    for (let itemsIterate = 0; itemsIterate < this.state.items.length; itemsIterate++) {
+      const item = this.state.items[itemsIterate];
+      // CASE INSENSITIVE SEARCH
+      if((item.search((new RegExp(this.state.searchWord, "i"))))>(-1)) { 
+        searchedItems.push(item);
+      }        
+    }        
+    this.setState({ 
+      searchItems: searchedItems, 
+      searchWord: event.target.value 
+    });            
+  }
+
+  handleDelete = (index) => { 
+    this.setState(this.state.items.splice(index,1));     
   }
 
   onChange = (event) => {
@@ -40,10 +49,9 @@ export default class App extends Component {
     });
   }
 
-  correctList(){
-       let list = [];
-      (this.state.searchWord === '')?(list=this.state.items):(list=this.state.searchItems);
-      return list;
+  correctList() {
+    let list = this.state.searchWord === '' ? this.state.items : this.state.searchItems 
+    return list;
   }
 
   render() {
@@ -56,9 +64,14 @@ export default class App extends Component {
           <button>Submit</button>
         </form>
         <form className="App">
-        <input onChange={this.handleSearch}   value={this.state.searchWord} className="search" type="text" placeholder="filter list" />
+        <input 
+          onChange={this.handleSearch} 
+          value={this.state.searchWord} 
+          className="search" 
+          type="text" 
+          placeholder="filter list" />
         </form>        
-        <List items={this.correctList()} handleDelete={ this.handleDelete } /> 
+        <List items={this.correctList()} handleDelete={this.handleDelete} /> 
       </div>
     );
   }
