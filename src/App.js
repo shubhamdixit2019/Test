@@ -40,7 +40,7 @@ export default class App extends Component {
     });
   }
 
-   correctList(){
+  correctList(){
        let list = [];
       (this.state.searchWord === '')?(list=this.state.items):(list=this.state.searchItems);
       return list;
@@ -57,7 +57,8 @@ export default class App extends Component {
         </form>
         <form className="App">
         <input onChange={this.handleSearch}   value={this.state.searchWord} className="search" type="text" placeholder="filter list" />
-        </form><List items={this.correctList()} handleDelete={ this.handleDelete } /> 
+        </form>        
+        <List items={this.correctList()} handleDelete={ this.handleDelete } /> 
       </div>
     );
   }
