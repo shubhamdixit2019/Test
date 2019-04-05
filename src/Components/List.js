@@ -1,9 +1,10 @@
 import React from 'react';
 
-const List = ({items}) => (
+
+const List = (props) => (
   <ol>
     {
-      items.map((item, index) => {
+      props.items.map((item, index) => {
         return (
           <li key={index}>
             {item} 
