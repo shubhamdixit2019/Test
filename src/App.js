@@ -65,14 +65,13 @@ export default class App extends Component {
         <AddButton
           onSubmit={this.onSubmit}
         />
-        {/* <form className="App"> */}
-          <input
+        <input
             onChange={this.handleSearch}
             value={this.state.searchWord}
             className="search"
             type="text"
             placeholder="filter list" />
-        {/* </form> */}
+        
         <List items={this.correctList()} handleDelete={this.handleDelete} />
         {/* <div>
           <h1>{this.methods}</h1>
