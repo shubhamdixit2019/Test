@@ -7,6 +7,7 @@ class Header extends React.Component{
             <div>
                  <h1 className="HeadApp">React To-Do App</h1>
                  <h2 className="HeadApp">Enhance Your Productivity</h2>
+                
             </div>
         )
     }
