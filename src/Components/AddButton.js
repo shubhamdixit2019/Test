@@ -18,14 +18,14 @@ class AddButton extends React.Component {
 	render() {
 
 		return (
-			<div className="App">				
-					
-					<input value={this.state.term} onChange={this.onChange} />	
-				<button  onClick = {() => this.props.onSubmit(this.state.term)}>Submit</button>
+			<div className="App">					
+				<input value={this.state.term} onChange={this.onChange}/>
+				<button  onClick = {() => 
+				this.props.onSubmit(this.state.term)}>Submit
+				</button>
 			</div>
 		)
 	}
-
 }
 
 export default AddButton;

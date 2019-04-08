@@ -4,18 +4,6 @@ import './App.css';
 import MainContainer from './Containers/MainContainer'
 import DisplayAPI from './Components/DisplayAPI'
 
-
-// class App extends Component { 
-  
-//   render() {
-//     return (
-//       <div>
-//         <MainContainer />
-//       </div>
-//     );
-//   }
-// }
-
 function App() {
   return (
     <Router>
@@ -28,18 +16,9 @@ function App() {
   );
 }
 
-// function Display(){
-//   return(
-
-//   )
-// }
-
-
 function lists() {
   return <DisplayAPI />;
 }
-
-
 
 function Header() {
   return (
@@ -55,4 +34,4 @@ function Header() {
   );
 }
 
-  export default App;
+export default App;

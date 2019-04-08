@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 class DisplayAPI extends Component {
     constructor(){
       super();
@@ -34,7 +33,7 @@ class DisplayAPI extends Component {
                   <th>Creation Date</th>
                   <th>Balance</th>
               </tr>
-         </table >
+         </table > 
           {
           this.state.data ?
           this.state.data.map((item)=>

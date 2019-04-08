@@ -18,20 +18,22 @@ class MainContainer extends Component {
 
   handleSearch =(searchWord) => {
     let searchedItems = [];
-      for (let itemsIterate = 0; itemsIterate < this.state.items.length; itemsIterate++) {
+      for (let itemsIterate = 0; 
+        itemsIterate < this.state.items.length; itemsIterate++) {
       const item = this.state.items[itemsIterate];
       // CASE INSENSITIVE SEARCH
       if ((item.search((new RegExp(searchWord, "i")))) > (-1)) {
       searchedItems.push(item);
       }
     }
+
     this.setState({
       searchItems: searchedItems,
       searchWordApp: searchWord
     });
   }
 
-  handleDelete = (index) => {
+  handleDelete = (index) => event => { 
       this.setState(this.state.items.splice(index, 1));
   }
 
@@ -55,7 +57,8 @@ class MainContainer extends Component {
         <AddButton 
           onSubmit={this.onSubmit}
         />         
-        <FilterSearch handleSearch={this.handleSearch} />  
+        <FilterSearch 
+        handleSearch={this.handleSearch} />  
         <List items={this.correctList()}
          handleDelete={this.handleDelete} />
       </div>
