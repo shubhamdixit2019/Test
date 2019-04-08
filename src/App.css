@@ -8,6 +8,30 @@
   pointer-events: none;
 }
 
+.table {
+	display: table;   /* Allow the centering to work */
+	margin: 0 auto;
+}
+
+#menu-outer {
+	height: 84px;	
+}
+
+.center {
+  margin-left:auto; 
+  margin-right:auto;
+}
+
+ul#horizontal-list {
+	min-width: 696px;
+	list-style: none;
+	padding-top: 20px;
+  }
+  
+ul#horizontal-list li {
+		display: inline;
+	}
+
 .HeadApp{
     text-align: center;
     color : chocolate;

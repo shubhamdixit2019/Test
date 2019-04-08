@@ -1,66 +1,58 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './App.css';
-import List from './Components/List';
-import Header from './Components/Header';
-import AddButton from './Components/AddButton'
-import FilterSearch from './Components/FilterSearch'
+import MainContainer from './Containers/MainContainer'
+import DisplayAPI from './Components/DisplayAPI'
 
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-      searchItems: [],      
-      searchWordApp : ''
-    };
-  }
+// class App extends Component { 
+  
+//   render() {
+//     return (
+//       <div>
+//         <MainContainer />
+//       </div>
+//     );
+//   }
+// }
 
-  handleSearch =(searchWord) => {
-    let searchedItems = [];
-      for (let itemsIterate = 0; itemsIterate < this.state.items.length; itemsIterate++) {
-      const item = this.state.items[itemsIterate];
-      // CASE INSENSITIVE SEARCH
-      if ((item.search((new RegExp(searchWord, "i")))) > (-1)) {
-        searchedItems.push(item);
-      }
-    }
-    this.setState({
-      searchItems: searchedItems,
-      searchWordApp: searchWord
-    });
-  }
-
-  handleDelete = (index) => {
-    this.setState(this.state.items.splice(index, 1));
-  }
-
-  onSubmit = (term) => {
-        
-        this.setState({      
-      items: [...this.state.items, term]
-    });
-  }
-
-  correctList() {
-    let list = this.state.searchWordApp === '' ? this.state.items : this.state.searchItems
-    return list;
-  }
-
-
-
-  render() {
-    return (
-      <div>
-        <Header name={"India"}/>
-        <AddButton 
-          onSubmit={this.onSubmit}
-        />         
-        <FilterSearch handleSearch={this.handleSearch} />  
-        <List items={this.correctList()} handleDelete={this.handleDelete} />
+function App() {
+  return (
+    <Router>
+      <div>        
+        <MainContainer /> 
+        <Header />     
+        <Route path="/lists" component={lists} />        
       </div>
-    );
-  }
+    </Router>
+  );
 }
 
-   
+// function Display(){
+//   return(
+
+//   )
+// }
+
+
+function lists() {
+  return <DisplayAPI />;
+}
+
+
+
+function Header() {
+  return (
+    <div id="menu-outer">
+      <div class="table">
+    <ul id="horizontal-list" >      
+      <li className="App">
+        <Link to="/lists">List</Link>
+      </li>      
+    </ul>
+    </div>
+    </div>
+  );
+}
+
+  export default App;
