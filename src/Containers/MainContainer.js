@@ -4,7 +4,34 @@ import List from '../Components/List';
 import Header from '../Components/Header';
 import AddButton from '../Components/AddButton'
 import FilterSearch from '../Components/FilterSearch'
+import ReduxDemo from '../Components/Counter/ReduxDemo'
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
+const initialState = {
+  count: 0
+};
+
+function reducer(state = initialState, action) {
+  switch(action.type) {
+    case 'INCREMENT':
+      return {
+        count: state.count + 1
+      };
+    case 'DECREMENT':
+      return {
+        count: state.count - 1
+      };
+    case 'ASYNCINCREMENT':
+    return{
+      count: state.count + 1
+    }
+    default:
+      return state;
+  }
+}
+
+const store = createStore(reducer);
 
 class MainContainer extends Component {
   constructor(props) {
@@ -19,7 +46,7 @@ class MainContainer extends Component {
   handleSearch =(searchWord) => {
     let searchedItems = [];
       for (let itemsIterate = 0; 
-        itemsIterate < this.state.items.length; itemsIterate++) {
+        itemsIterate < this.state.items.length; itemsIterate++){
       const item = this.state.items[itemsIterate];
       // CASE INSENSITIVE SEARCH
       if ((item.search((new RegExp(searchWord, "i")))) > (-1)) {
@@ -58,9 +85,12 @@ class MainContainer extends Component {
           onSubmit={this.onSubmit}
         />         
         <FilterSearch 
-        handleSearch={this.handleSearch} />  
+        handleSearch={this.handleSearch}/>  
         <List items={this.correctList()}
-         handleDelete={this.handleDelete} />
+         handleDelete={this.handleDelete}/>
+        <Provider store={store}>
+         <ReduxDemo/>
+       </Provider>
       </div>
     );
   }

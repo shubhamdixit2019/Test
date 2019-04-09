@@ -51,7 +51,7 @@ class DisplayAPI extends Component {
           </div>        
           )
           :
-          <h3>Please Wait .... DATA LOADING....</h3>
+          <h3>Please Wait.... DATA LOADING....</h3>
           }
         </div>
       );
