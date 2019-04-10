@@ -4,17 +4,15 @@ import './App.css';
 import MainContainer from './Containers/MainContainer'
 import DisplayAPI from './Components/DisplayAPI'
 
-
 function ABC() {
   return (
     <Router>
       <div>        
-        <MainContainer 
-        /> 
-        <Header
-        />     
-        <Route path="/lists" component={lists}
-        />        
+        <Header/>     
+        <Switch>
+          <Route exact path="/" component={MainContainer}/>        
+          <Route path="/lists" component={lists}/> 
+        </Switch>
       </div>
     </Router>
   );
@@ -28,12 +26,12 @@ function Header() {
   return (
     <div id="menu-outer">
       <div class="table">
-    <ul id="horizontal-list" >      
-      <li className="App">
-        <Link to="/lists">List</Link>
-      </li>      
-    </ul>
-    </div>
+        <ul id="horizontal-list" >      
+          <li className="App">
+            <Link to="/lists">List</Link>
+          </li>      
+        </ul>
+      </div>
     </div>
   );
 }

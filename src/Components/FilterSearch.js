@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {PropTypes} from 'react';
 import '../App.css';
 import '../App'
 
@@ -27,14 +26,13 @@ class FilterSearch extends React.Component {
 			<div className="App">
 			<input            
 			value={this.state.searchWord}
-			onChange={this.onChange}
-				
+			onChange={this.onChange}				
             className="search"
             type="text"
             placeholder="filter list" 
 			/>
 			<button onClick={()=>this.props.handleSearch(this.varConst())}>Search</button>
-             </div>
+            </div>
 		)
 	}
 

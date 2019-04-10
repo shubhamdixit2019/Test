@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { increment, decrement } from './Action';
 import '../../App.css'
+import * as Actions from  '../../Actions/counterActions';
 
 class Counter extends React.Component {
 
@@ -28,16 +28,9 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    decrement: () => {
-      dispatch({ type: 'DECREMENT' });     
-      
-    },
-    increment: () => {
-      dispatch({ type: 'INCREMENT' });      
-    },
-    asyncIncrement: () => {
-       dispatch({ type: 'ASYNCINCREMENT' });      
-    }
+    decrement:()=>{ Actions.decrement(dispatch)},
+    increment: () => { Actions.increment(dispatch)},
+    asyncIncrement: () => { Actions.asyncIncrement(dispatch)}
   };
 };
 

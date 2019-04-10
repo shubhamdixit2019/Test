@@ -4,34 +4,11 @@ import List from '../Components/List';
 import Header from '../Components/Header';
 import AddButton from '../Components/AddButton'
 import FilterSearch from '../Components/FilterSearch'
-import ReduxDemo from '../Components/Counter/ReduxDemo'
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import '../Components/Counter/Counter'
+import Counter from '../Components/Counter/Counter';
+import  {countStore} from '../Store';
 
-const initialState = {
-  count: 0
-};
-
-function reducer(state = initialState, action) {
-  switch(action.type) {
-    case 'INCREMENT':
-      return {
-        count: state.count + 1
-      };
-    case 'DECREMENT':
-      return {
-        count: state.count - 1
-      };
-    case 'ASYNCINCREMENT':
-    return{
-      count: state.count + 1
-    }
-    default:
-      return state;
-  }
-}
-
-const store = createStore(reducer);
 
 class MainContainer extends Component {
   constructor(props) {
@@ -86,11 +63,11 @@ class MainContainer extends Component {
         />         
         <FilterSearch 
         handleSearch={this.handleSearch}/>  
+        <Provider store={countStore}>
+        <Counter/>
+        </Provider>
         <List items={this.correctList()}
-         handleDelete={this.handleDelete}/>
-        <Provider store={store}>
-         <ReduxDemo/>
-       </Provider>
+         handleDelete={this.handleDelete}/>        
       </div>
     );
   }
