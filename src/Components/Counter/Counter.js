@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import '../../App.css'
-import * as Actions from  '../../Actions/counterActions';
+import { increment, decrement, asyncIncrement } from '../../Actions/counterActions';
 
 class Counter extends React.Component {
 
@@ -21,17 +21,18 @@ class Counter extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {
-    count: state.count
+  // Object comes up!
+   return {
+    count: state.count.count
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    decrement:()=>{ Actions.decrement(dispatch)},
-    increment: () => { Actions.increment(dispatch)},
-    asyncIncrement: () => { Actions.asyncIncrement(dispatch)}
+    decrement: () => { dispatch(decrement()) },
+    increment: () => { dispatch(increment()) },
+    asyncIncrement: () => { dispatch(asyncIncrement()) }
   };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(Counter);
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);

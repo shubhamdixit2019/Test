@@ -1,21 +1,20 @@
-import * as Constants from '../Constants/CounterConstants';
+import { INCREMENT_COUNTER, DECREMENT_COUNTER, ASYNC_INCREMENT_COUNTER } from '../Constants/CounterConstants';
 
 const initialState = {
   count: 0
 };
 
-function countReducer(state = initialState, action) {
-  switch(action.type) {
-    case Constants.incrementCounter:
-      state.count = state.count + 1
+export function countReducer(state = initialState, action) {
+  switch (action.type) {
+    case INCREMENT_COUNTER:
       return {
         count: state.count + 1
       };
-    case Constants.decrementCounter:
+    case DECREMENT_COUNTER:
       return {
         count: state.count - 1
       };
-    case Constants.asyncIncrementCounter:
+    case ASYNC_INCREMENT_COUNTER:
       return {
         count: state.count + 1
       }
@@ -24,4 +23,4 @@ function countReducer(state = initialState, action) {
   }
 }
 
-export {countReducer};
+ export default countReducer;

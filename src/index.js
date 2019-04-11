@@ -1,5 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
-import ABC from './App';
+import App from './App';
+import { store } from './Store'
+import { Provider } from 'react-redux'
 
-render(<ABC />, document.getElementById('root'));
+
+render(
+<Provider store={store}>
+<App />
+</Provider>, document.getElementById('root'));

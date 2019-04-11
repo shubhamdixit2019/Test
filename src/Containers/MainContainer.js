@@ -2,75 +2,84 @@ import React, { Component } from 'react';
 import '../App.css';
 import List from '../Components/List';
 import Header from '../Components/Header';
-import AddButton from '../Components/AddButton'
+import AddTodo from '../Components/AddTodo'
 import FilterSearch from '../Components/FilterSearch'
-import { Provider } from 'react-redux';
-import '../Components/Counter/Counter'
-import Counter from '../Components/Counter/Counter';
-import  {countStore} from '../Store';
-
+import Counter from '../Components/Counter/Counter'
+import { connect } from 'react-redux'
+import { remove, filterSearch } from '../Actions/AddTodoAction'
 
 class MainContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
-      searchItems: [],      
-      searchWordApp : ''
+      searchWordApp: ''
     };
   }
 
-  handleSearch =(searchWord) => {
-    let searchedItems = [];
-      for (let itemsIterate = 0; 
-        itemsIterate < this.state.items.length; itemsIterate++){
-      const item = this.state.items[itemsIterate];
-      // CASE INSENSITIVE SEARCH
-      if ((item.search((new RegExp(searchWord, "i")))) > (-1)) {
-      searchedItems.push(item);
-      }
-    }
-
+  handleSearch = (searchWord) => {
     this.setState({
-      searchItems: searchedItems,
-      searchWordApp: searchWord
-    });
+      searchWordApp : searchWord
+    })    
+    // let searchedItems = [];
+    // console.log('searchWord=================>',searchWord)
+    // console.log('this.props.items============>',this.props.items);
+    // for (let itemsIterate = 0;
+    //   itemsIterate < this.props.items.length; itemsIterate++) {
+    //   const item = this.props.items[itemsIterate];
+    //   // CASE INSENSITIVE SEARCH
+    //   if ((item.search((new RegExp(searchWord, "i")))) > (-1)) {
+    //     searchedItems.push(item);
+    //   }
+    // }   
+
+    // this.setState({
+    //   searchItems: searchedItems,
+    //   searchWordApp: searchWord
+    // });
+    //console.log('this.state.searchItems======================>',this.state.searchItems);
+    this.props.filterSearch(searchWord);    
   }
 
-  handleDelete = (index) => event => { 
-      this.setState(this.state.items.splice(index, 1));
+  handleDelete = (index) => event => {        
+    this.props.remove(index);
   }
 
-  onSubmit = (term) => {        
-      this.setState({      
-      items: [...this.state.items, term]
-    });
-  }
-
-  correctList() {
-    let list = this.state.searchWordApp === '' ? 
-    this.state.items : this.state.searchItems
+  correctList() {   
+    console.log('this.props.filteredList ============================> ',this.props.filteredList);
+    console.log('this.props.items ===================================> ',this.props.items);
+    let list = this.state.searchWordApp === '' ? this.props.items : this.props.filteredList;
+    console.log('this.state.searchWordApp ============================> ',this.state.searchWordApp) 
     return list;
   }
 
-
-  render() {
+  render() {    
     return (
       <div>
-        <Header/>
-        <AddButton 
-          onSubmit={this.onSubmit}
-        />         
-        <FilterSearch 
-        handleSearch={this.handleSearch}/>  
-        <Provider store={countStore}>
-        <Counter/>
-        </Provider>
+        <Header />
+        <AddTodo
+          onSubmit={this.onSubmit} />
+        <FilterSearch
+          handleSearch={this.handleSearch} />
         <List items={this.correctList()}
-         handleDelete={this.handleDelete}/>        
+          handleDelete={this.handleDelete} />
+        <Counter />
       </div>
     );
   }
 }
 
-export default MainContainer
+function mapStateToProps(state) {
+  return {
+    items: state.todo.items,
+    filteredList : state.todo.filteredList
+  };
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    //Index will be sent
+    remove: (payload) => { dispatch(remove(payload)) },
+    filterSearch : (payload) => { dispatch(filterSearch(payload)) }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
