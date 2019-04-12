@@ -1,4 +1,9 @@
-import { ADD_TODO, FILTER_SEARCH, REMOVE } from '../Constants/CounterConstants';
+import {
+  ADD_TODO,
+  FILTER_SEARCH,
+  REMOVE_TODO
+}
+  from '../Constants/Constants';
 
 const initialState = {
   items: [],
@@ -15,12 +20,13 @@ function todoReducer(state = initialState, action) {
       };
     case FILTER_SEARCH:
       const filterItems =
-        state.items.filter((item, index) => ((item.search((new RegExp(action.payload, "i")))) > (-1)))    
+        state.items.filter((item, index) =>
+          ((item.search((new RegExp(action.payload, "i")))) > (-1)))
       return {
         ...state,
         filteredList: filterItems
       };
-    case REMOVE:
+    case REMOVE_TODO:
       //new reference created as the previous splice method 
       //assigned to he same state.items
       //was giving same things to it  

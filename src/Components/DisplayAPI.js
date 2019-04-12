@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { API_LINK } from '../Constants/Constants'
+import {
+  fetchListSuccess,
+  fetchListRequest,
+  fetchListFailure
+} from '../Actions/DisplayAPIAction'
 
 class DisplayAPI extends Component {
   constructor() {
@@ -6,40 +13,40 @@ class DisplayAPI extends Component {
     this.state = {
       data: null
     }
-    this.getData();
   }
 
   getData() {
-    let data
-      =
-      fetch('https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole').
-        then((Response) => {
-          Response.json().
-            then((findresponse) => {
-              this.setState({ data: findresponse })
-            })
-        })
+    fetch(API_LINK).
+      then((Response) => {
+        Response.json().
+          then((findresponse) => {
+            this.setState({ data: findresponse });
+          }).
+          catch(() => this.props.fetchListFailure("ERROR ENCOUNTERED"));
+      })
+  }
+
+  componentDidMount() {
+    this.props.fetchListRequest("Please Wait...Data Loading...");
+    this.getData();
+  }
+
+  passDataToReducer() {
+    if (this.state.data != null) {
+      this.props.fetchListSuccess(this.state.data);
+    }
   }
 
   render() {
-
+    this.passDataToReducer();
     return (
       <div className="App" >
-        <table class="center" >
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>Creation Date</th>
-            <th>Balance</th>
-          </tr>
-        </table >
+        {}
         {
-          this.state.data ?
-            this.state.data.map((item) =>
+          this.props.data ?
+            this.props.data.map((item) =>
               <div>
-                <table class="center">
+                <table className="center">
                   <tr>
                     <td>{item.first}</td>
                     <td>{item.last}</td>
@@ -52,11 +59,26 @@ class DisplayAPI extends Component {
               </div>
             )
             :
-            <h3>Please Wait.... DATA LOADING....</h3>
+            <h1>{this.props.status}</h1>
         }
       </div>
     );
   }
 }
 
-export default DisplayAPI;
+function mapStateToProps(state) {
+  return {
+    data: state.displayAPI.data,
+    status: state.displayAPI.status
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchListSuccess: (payload) => { dispatch(fetchListSuccess(payload)) },
+    fetchListRequest: (payload) => { dispatch(fetchListRequest(payload)) },
+    fetchListFailure: (payload) => { dispatch(fetchListFailure(payload)) }
+  };
+}
+
+export default (connect)(mapStateToProps, mapDispatchToProps)(DisplayAPI);

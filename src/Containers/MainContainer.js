@@ -19,7 +19,7 @@ class MainContainer extends Component {
   handleSearch = (searchWord) => {
     this.setState({
       searchWordApp: searchWord
-    })    
+    })
     this.props.filterSearch(searchWord);
   }
 
@@ -28,7 +28,7 @@ class MainContainer extends Component {
   }
 
   correctList() {
-    let list = this.state.searchWordApp === '' ? this.props.items : this.props.filteredList;    
+    let list = this.state.searchWordApp === '' ? this.props.items : this.props.filteredList;
     return list;
   }
 

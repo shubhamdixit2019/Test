@@ -23,13 +23,13 @@ class FilterSearch extends React.Component {
 					onChange={this.onChange}
 					className="search"
 					type="text"
-					placeholder="filter list"
-				/>
-				<button onClick={() => this.props.handleSearch(this.state.searchWord)}>Search</button>
+					placeholder="filter list" />
+				<button onClick=
+					{() => this.props.handleSearch(this.state.searchWord)}>
+					Search</button>
 			</div>
 		)
 	}
-
 }
 
 export default FilterSearch;

@@ -7,14 +7,14 @@ import './App.css';
 
 
 export function RouteInitial() {
-    return (
-        <Switch>
-            <Route exact path="/" component={MainContainer} />
-            <Route path="/lists" component={lists} />
-        </Switch>
-    );
+  return (
+    <Switch>
+      <Route exact path="/" component={MainContainer} />
+      <Route path="/lists" component={lists} />
+    </Switch>
+  );
 }
 
 function lists() {
-    return <DisplayAPI />;
+  return <DisplayAPI />;
 }

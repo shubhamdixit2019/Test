@@ -1,7 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {
+  increment,
+  decrement,
+  asyncIncrement
+}
+  from '../../Actions/counterActions';
 import '../../App.css'
-import { increment, decrement, asyncIncrement } from '../../Actions/counterActions';
 
 class Counter extends React.Component {
 

@@ -2,8 +2,10 @@
 import { combineReducers } from 'redux'
 import todoReducer from './todo';
 import countReducer from './CounterReducer';
+import displayAPIReducer from './DisplayAPIReducer'
 
 export default combineReducers({
   todo: todoReducer,
-  count: countReducer
+  count: countReducer,
+  displayAPI: displayAPIReducer
 });
