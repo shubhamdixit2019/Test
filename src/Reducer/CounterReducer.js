@@ -23,4 +23,4 @@ export function countReducer(state = initialState, action) {
   }
 }
 
- export default countReducer;
+export default countReducer;

@@ -22,7 +22,7 @@ class Counter extends React.Component {
 
 function mapStateToProps(state) {
   // Object comes up!
-   return {
+  return {
     count: state.count.count
   };
 }

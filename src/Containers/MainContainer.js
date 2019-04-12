@@ -18,41 +18,21 @@ class MainContainer extends Component {
 
   handleSearch = (searchWord) => {
     this.setState({
-      searchWordApp : searchWord
+      searchWordApp: searchWord
     })    
-    // let searchedItems = [];
-    // console.log('searchWord=================>',searchWord)
-    // console.log('this.props.items============>',this.props.items);
-    // for (let itemsIterate = 0;
-    //   itemsIterate < this.props.items.length; itemsIterate++) {
-    //   const item = this.props.items[itemsIterate];
-    //   // CASE INSENSITIVE SEARCH
-    //   if ((item.search((new RegExp(searchWord, "i")))) > (-1)) {
-    //     searchedItems.push(item);
-    //   }
-    // }   
-
-    // this.setState({
-    //   searchItems: searchedItems,
-    //   searchWordApp: searchWord
-    // });
-    //console.log('this.state.searchItems======================>',this.state.searchItems);
-    this.props.filterSearch(searchWord);    
+    this.props.filterSearch(searchWord);
   }
 
-  handleDelete = (index) => event => {        
+  handleDelete = (index) => event => {
     this.props.remove(index);
   }
 
-  correctList() {   
-    console.log('this.props.filteredList ============================> ',this.props.filteredList);
-    console.log('this.props.items ===================================> ',this.props.items);
-    let list = this.state.searchWordApp === '' ? this.props.items : this.props.filteredList;
-    console.log('this.state.searchWordApp ============================> ',this.state.searchWordApp) 
+  correctList() {
+    let list = this.state.searchWordApp === '' ? this.props.items : this.props.filteredList;    
     return list;
   }
 
-  render() {    
+  render() {
     return (
       <div>
         <Header />
@@ -71,14 +51,14 @@ class MainContainer extends Component {
 function mapStateToProps(state) {
   return {
     items: state.todo.items,
-    filteredList : state.todo.filteredList
+    filteredList: state.todo.filteredList
   };
 }
 const mapDispatchToProps = dispatch => {
   return {
     //Index will be sent
     remove: (payload) => { dispatch(remove(payload)) },
-    filterSearch : (payload) => { dispatch(filterSearch(payload)) }
+    filterSearch: (payload) => { dispatch(filterSearch(payload)) }
   };
 };
 

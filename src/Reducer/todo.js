@@ -15,17 +15,14 @@ function todoReducer(state = initialState, action) {
       };
     case FILTER_SEARCH:
       const filterItems =
-        state.items.filter((item, index) => ((item.search((new RegExp(action.payload, "i")))) > (-1)))
-      console.log('filterItems==================>', filterItems);
-      console.log('state.items==================>', state.items);      
+        state.items.filter((item, index) => ((item.search((new RegExp(action.payload, "i")))) > (-1)))    
       return {
         ...state,
-        filteredList : filterItems
-      }
-      
-
+        filteredList: filterItems
+      };
     case REMOVE:
       //new reference created as the previous splice method 
+      //assigned to he same state.items
       //was giving same things to it  
       const filteredItems =
         state.items.filter((item, index) => index !== action.payload)
