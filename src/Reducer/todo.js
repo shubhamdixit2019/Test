@@ -7,7 +7,8 @@ import {
 
 const initialState = {
   items: [],
-  filteredList: []
+  filteredList: [],
+  searchWordApp : ''
 };
 
 function todoReducer(state = initialState, action) {
@@ -19,12 +20,14 @@ function todoReducer(state = initialState, action) {
         items: [...state.items, action.payload.term]
       };
     case FILTER_SEARCH:
+    debugger
       const filterItems =
         state.items.filter((item, index) =>
-          ((item.search((new RegExp(action.payload, "i")))) > (-1)))
+          ((item.search((new RegExp(action.payload.searchWord, "i")))) > (-1)))
       return {
         ...state,
-        filteredList: filterItems
+        filteredList: filterItems,
+        searchWordApp : action.payload.searchWord
       };
     case REMOVE_TODO:
       //new reference created as the previous splice method 

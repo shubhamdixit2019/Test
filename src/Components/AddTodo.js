@@ -13,21 +13,24 @@ class AddButton extends React.Component {
     };
   }
 
-  onChange = (event) => {
-    this.setState({ term: event.target.value })
+  onChange = (event) => {    
+    this.setState({ term: event.target.value })    
   }
 
-  onSubmit = () => {
+  onSubmit = (event) => {
+    event.preventDefault();    
     this.props.addTodo({ term: this.state.term });
   }
 
   render() {
     return (
       <div className="App">
+       <form onSubmit={this.onSubmit}>
         <input value={this.state.term} onChange={this.onChange} />
         <button onClick={this.onSubmit}>
           Submit
 				</button>
+        </form>
       </div>
     )
   }

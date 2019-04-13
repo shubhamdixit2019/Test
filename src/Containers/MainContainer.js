@@ -11,24 +11,23 @@ import { remove, filterSearch } from '../Actions/AddTodoAction'
 class MainContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      searchWordApp: ''
-    };
   }
 
-  handleSearch = (searchWord) => {
-    this.setState({
-      searchWordApp: searchWord
-    })
-    this.props.filterSearch(searchWord);
-  }
+  // handleSearch = (searchWord) => event => {
+  //   event.preventDefault(); 
+  //   this.setState({
+  //     searchWordApp: searchWord
+  //   })
+  //   this.props.filterSearch(searchWord);
+  //}
 
   handleDelete = (index) => event => {
+    event.preventDefault(); 
     this.props.remove(index);
   }
 
   correctList() {
-    let list = this.state.searchWordApp === '' ? this.props.items : this.props.filteredList;
+    let list = this.props.searchWordApp === '' ? this.props.items : this.props.filteredList;
     return list;
   }
 
@@ -37,7 +36,7 @@ class MainContainer extends Component {
       <div>
         <Header />
         <AddTodo
-          onSubmit={this.onSubmit} />
+           />
         <FilterSearch
           handleSearch={this.handleSearch} />
         <List items={this.correctList()}
@@ -51,7 +50,8 @@ class MainContainer extends Component {
 function mapStateToProps(state) {
   return {
     items: state.todo.items,
-    filteredList: state.todo.filteredList
+    filteredList: state.todo.filteredList,
+    searchWordApp: state.todo.searchWordApp
   };
 }
 const mapDispatchToProps = dispatch => {
