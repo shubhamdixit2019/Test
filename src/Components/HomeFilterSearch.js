@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {  filterSearch } from '../Actions/AddTodoAction'
+import {  homefilterSearch } from '../Actions/AddTodoAction'
 import '../App.css';
 import '../App'
 
-class FilterSearch extends React.Component {
+class HomeFilterSearch extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -19,7 +19,7 @@ class FilterSearch extends React.Component {
 	handleSearch = (searchWord) => event => {
 		event.preventDefault();  
 		debugger		 		
-		this.props.filterSearch({searchWord : searchWord});		
+		this.props.homefilterSearch({searchWord : searchWord});		
 	  }
 
 
@@ -48,17 +48,17 @@ class FilterSearch extends React.Component {
 
 function mapStateToProps(state) {
 	return {
-	  items: state.todo.items,
-	  filteredList: state.todo.filteredList,
-	  searchWordApp : state.todo.searchWordApp
+	  items: state.todo.homeitems,
+	  filteredList: state.todo.homefilteredList,
+	  searchWordApp : state.todo.homesearchWordApp
 	};
   }
   const mapDispatchToProps = dispatch => {
 	return {
 	  //Index will be sent	  
-	  filterSearch : (payload) => { dispatch(filterSearch(payload)) }
+	  homefilterSearch : (payload) => { dispatch(homefilterSearch(payload)) }
 	};
   };
   
- export default connect(mapStateToProps, mapDispatchToProps)(FilterSearch);
+ export default connect(mapStateToProps, mapDispatchToProps)(HomeFilterSearch);
 

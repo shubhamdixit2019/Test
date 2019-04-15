@@ -10,3 +10,7 @@ export const FETCH_LIST_FAILURE = 'FETCH_LIST_FAILURE';
 //TO BE ADDED IN CONFIGURATION FILE ONLY TEMPORARY ADDITION TO THIS FILE
 export const API_LINK =
   'https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole'
+
+//REDUCER CUSTOMIZATION
+export const HOME='HOME';
+export const OFFICE='OFFICE';

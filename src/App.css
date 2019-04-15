@@ -8,6 +8,11 @@
   pointer-events: none;
 }
 
+.Stack {
+flex-direction: row;
+justify-content: flex-start;    
+}
+
 .table {
 	display: table;
 	margin: 0 auto;

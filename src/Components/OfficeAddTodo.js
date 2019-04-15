@@ -1,11 +1,11 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addTodo, filterSearch } from '../Actions/AddTodoAction'
+import { officeaddTodo, officefilterSearch } from '../Actions/AddTodoAction'
 import '../App.css';
 import './Header'
 
-class AddButton extends React.Component {
+class OfficeAddTodo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +19,7 @@ class AddButton extends React.Component {
 
   onSubmit = (event) => {
     event.preventDefault();    
-    this.props.addTodo({ term: this.state.term });
+    this.props.officeaddTodo({ term: this.state.term });
   }
 
   render() {
@@ -44,9 +44,9 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addTodo: (payload) => { dispatch(addTodo(payload)) },
-    filterSearch: (payload) => { dispatch(filterSearch(payload)) }
+    officeaddTodo: (payload) => { dispatch(officeaddTodo(payload)) },
+    officefilterSearch: (payload) => { dispatch(officefilterSearch(payload)) }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddButton);
+export default connect(mapStateToProps, mapDispatchToProps)(OfficeAddTodo);

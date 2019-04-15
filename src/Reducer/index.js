@@ -3,9 +3,13 @@ import { combineReducers } from 'redux'
 import todoReducer from './todo';
 import countReducer from './CounterReducer';
 import displayAPIReducer from './DisplayAPIReducer'
+import createReducerTodoForMultipleUse from './todo'
+import { HOME,OFFICE } from '../Constants/Constants'
 
 export default combineReducers({
-  todo: todoReducer,
-  count: countReducer,
-  displayAPI: displayAPIReducer
+   todo: todoReducer,
+ count: countReducer,
+ displayAPI: displayAPIReducer,
+// ReducerHome : createReducerTodoForMultipleUse(HOME),
+//   ReducerOffice : createReducerTodoForMultipleUse(OFFICE)
 });
