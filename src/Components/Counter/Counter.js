@@ -9,7 +9,7 @@ import {
 import '../../App.css'
 
 class Counter extends React.Component {
-  render () {
+  render() {
     return (
       <div className='App'>
         <h2>Counter</h2>
@@ -17,14 +17,13 @@ class Counter extends React.Component {
           <button onClick={this.props.decrement}>-</button>
           <span>{this.props.count}</span>
           <button onClick={this.props.increment}>+</button>
-          <button onClick={this.props.asyncIncrement}>Async+</button>
         </div>
       </div>
     )
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   // Object comes up!
   return {
     count: state.count.count

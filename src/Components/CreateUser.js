@@ -1,4 +1,13 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import {
+  CREATE_USER
+} from '../Constants/Constants'
+import {
+  createUserFailure,
+  createUserPending,
+  createUserSuccess
+} from '../Actions/DisplayAPIAction'
 
 class CreateUser extends Component {
   constructor() {
@@ -16,27 +25,26 @@ class CreateUser extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    this.createItemsAtBackend();
+    debugger
+    this.createItems();
   }
 
-  createItemsAtBackend=async function() {    
-    try{
-      await fetch('http://localhost:9000/create-user/', {
-        mode: 'no-cors',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `name=${this.state.term}`      
-      })
-    }catch(err)
-    {
-      console.log("Error Encountered");
-    }
-
+  createItems() {
+    fetch(CREATE_USER, {
+      mode: 'no-cors',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `name=${this.state.term}`
+    }).then((res) => {
+      (res.ok && res.status === 200) ? createUserSuccess() :
+        createUserFailure({ error: res.status })
+    }).catch((err) => createUserFailure({ error: err }))
   }
 
   render() {
+
     return (
       <div className='App' >
         <form>
@@ -44,10 +52,25 @@ class CreateUser extends Component {
             <input value={this.state.term} onChange={this.onChange} />
             <button onClick={this.onSubmit}>Submit</button>
           </form>
+          <p1>{this.props.result}</p1>
         </form>
       </div>
     )
   }
 }
 
-export default CreateUser;
+function mapStateToProps(state) {
+  return {
+    result: state.userList.result
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    createUserSuccess: () => { dispatch(createUserSuccess()) },
+    createUserPending: () => { dispatch(createUserPending()) },
+    createUserFailure: (payload) => { dispatch(createUserFailure(payload)) }
+  }
+}
+
+export default (connect)(mapStateToProps, mapDispatchToProps)(CreateUser);

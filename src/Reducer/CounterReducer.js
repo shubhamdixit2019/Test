@@ -9,7 +9,7 @@ const initialState = {
   count: 0
 }
 
-export function countReducer (state = initialState, action) {
+export function countReducer(state = initialState, action) {
   switch (action.type) {
     case INCREMENT_COUNTER:
       return {

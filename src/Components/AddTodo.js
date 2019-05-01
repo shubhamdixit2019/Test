@@ -1,11 +1,11 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { officeaddTodo, officefilterSearch } from '../Actions/AddTodoAction'
+import { addTodo, filterSearch } from '../Actions/AddTodoAction'
 import '../App.css';
 import './Header'
 
-class OfficeAddTodo extends React.Component {
+class AddTodo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,11 +13,11 @@ class OfficeAddTodo extends React.Component {
       apiResponse: ""
     };
   }
+
   callAPI() {
     fetch("http://localhost:9000/todo-lists")
       .then(res => res.text())
       .then(res => this.setState({ apiResponse: res }))
-
   }
 
   componentWillMount() {
@@ -30,19 +30,7 @@ class OfficeAddTodo extends React.Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    this.createItemsAtBackend();
-    this.props.officeaddTodo({ term: this.state.term });
-  }
-
-  createItemsAtBackend(){
-    fetch('http://localhost:9000/todo-items/', {
-      mode: 'no-cors',
-      method: 'POST',
-      headers: {        
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body : `name=${this.state.term}&listId=1`,
-    }) 
+    this.props.addTodo({ term: this.state.term });
   }
 
   render() {
@@ -52,7 +40,7 @@ class OfficeAddTodo extends React.Component {
           <input value={this.state.term} onChange={this.onChange} />
           <button onClick={this.onSubmit}>
             Submit
-				</button>
+				  </button>
           <p>{this.state.apiResponse}</p>
         </form>
       </div>
@@ -68,9 +56,9 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    officeaddTodo: (payload) => { dispatch(officeaddTodo(payload)) },
-    officefilterSearch: (payload) => { dispatch(officefilterSearch(payload)) }
+    addTodo: (payload) => { dispatch(addTodo(payload)) },
+    filterSearch: (payload) => { dispatch(filterSearch(payload)) }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OfficeAddTodo);
+export default connect(mapStateToProps, mapDispatchToProps)(AddTodo);

@@ -8,14 +8,14 @@ import {
 } from '../Actions/DisplayAPIAction'
 
 class DisplayAPI extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       data: null
     }
   }
 
-  getData () {
+  getData() {
     fetch(API_LINK)
       .then((Response) => {
         Response.json()
@@ -26,18 +26,18 @@ class DisplayAPI extends Component {
       })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.fetchListRequest('Please Wait...Data Loading...')
     this.getData()
   }
 
-  passDataToReducer () {
+  passDataToReducer() {
     if (this.state.data != null) {
       this.props.fetchListSuccess(this.state.data)
     }
   }
 
-  render () {
+  render() {
     this.passDataToReducer()
     return (
       <div className='App' >
@@ -64,7 +64,7 @@ class DisplayAPI extends Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     data: state.displayAPI.data,
     status: state.displayAPI.status

@@ -7,7 +7,7 @@ const List = (props) => (
         return (
           <li key={index}>
             {item}
-            <button onClick={props.handleDelete(item)}>
+            <button onClick={props.handleDelete(index)}>
               X
             </button>
           </li>
