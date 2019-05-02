@@ -7,7 +7,10 @@ import {
   FETCH_DELETE_USER_PENDING,
   FETCH_CREATE_USER_FAILURE,
   FETCH_CREATE_USER_SUCCESS,
-  FETCH_CREATE_USER_PENDING
+  FETCH_CREATE_USER_PENDING,
+  UPDATE_USER_FAILURE,
+  UPDATE_USER_PENDING,
+  UPDATE_USER_SUCCESS
 } from '../Constants/Constants'
 
 export const fetchListRequest =
@@ -36,3 +39,13 @@ export const createUserPending =
 
 export const createUserFailure =
   (payload) => ({ type: FETCH_CREATE_USER_FAILURE, payload })
+
+export const updateUserSuccess =
+  () => ({ type: UPDATE_USER_SUCCESS })
+
+export const updateUserPending =
+  () => ({ type: UPDATE_USER_PENDING })
+
+export const updateUserFailure =
+  (payload) => ({ type: UPDATE_USER_FAILURE, payload })
+  

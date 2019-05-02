@@ -7,11 +7,20 @@ import {
   fetchListFailure,
   deleteUserFailure,
   deleteUserPending,
-  deleteUserSuccess
+  deleteUserSuccess,
+  updateUserFailure,
+  updateUserSuccess,
+  updateUserPending
 } from '../Actions/DisplayAPIAction'
 import BackendList from './BackendList';
 
 class UserList extends Component {
+constructor(){
+  super();
+  this.state={
+    editId : null,    
+  }
+}
 
   getData() {
     fetch(USERS_BACKEND)
@@ -26,6 +35,7 @@ class UserList extends Component {
   componentDidMount() {
     this.props.fetchListRequest();
     this.getData();
+    
   }
 
   deleteItems(id) {
@@ -39,8 +49,30 @@ class UserList extends Component {
     }).then((res) => {
       (res.ok && res.status === 200)
         ? this.props.deleteUserSuccess({ id: id })
-        : deleteUserFailure({ error: res.status })
-    }).catch((err) => deleteUserFailure({ error: err }));
+        : this.props.deleteUserFailure({ error: res.status })
+    }).catch((err) => this.props.deleteUserFailure({ error: err }));
+  }
+
+  updateItems(data) {
+    fetch(USERS_BACKEND, {
+      mode: 'cors',
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `name=${data.updatedValue}&id=${data.id}`,
+    }).then((res) => {
+      (res.ok )
+      ?this.props.updateUserSuccess()
+      :this.props.updateUserFailure({error : res.status})
+    }).catch((err) => this.props.updateUserFailure({error : err}))
+  }
+
+  handleEdit = id => event => {
+    event.preventDefault();
+    this.setState({
+      editId : id
+    })  
   }
 
   handleDelete = id => event => {
@@ -48,15 +80,27 @@ class UserList extends Component {
     this.deleteItems(id);
   }
 
+  onSubmit = data => event => {
+    event.preventDefault(); 
+    this.updateItems(data);  
+
+  }
+
   render() {
     return (
       <div className='App' >
         {
           this.props.list ?
-            <BackendList items={this.props.list}
-              handleDelete={this.handleDelete} />
+            <BackendList items={this.props.list} editId = {this.state.editId}
+              handleDelete={this.handleDelete} handleEdit={this.handleEdit} 
+              onSubmit={this.onSubmit}/>
             : <h1>{this.props.status}</h1>
         }
+         <div>
+            {
+              <p>{this.props.updateStatus}</p>
+            }
+         </div>
       </div>
     )
   }
@@ -65,7 +109,10 @@ class UserList extends Component {
 function mapStateToProps(state) {
   return {
     list: state.userList.list,
-    status: state.userList.status
+    status: state.userList.status,
+    updateStatus: state.userList.updateStatus,
+    updateIspending : state.userList.updateIspending,
+    updateErrorMessage : state.userList.updateErrorMessage
   }
 }
 
@@ -76,7 +123,10 @@ const mapDispatchToProps = dispatch => {
     fetchListFailure: (payload) => { dispatch(fetchListFailure(payload)) },
     deleteUserSuccess: (payload) => { dispatch(deleteUserSuccess(payload)) },
     deleteUserFailure: (payload) => { dispatch(deleteUserFailure(payload)) },
-    deleteUserPending: () => { dispatch(deleteUserPending()) }
+    deleteUserPending: () => { dispatch(deleteUserPending()) },
+    updateUserSuccess: () => { dispatch(updateUserSuccess()) },
+    updateUserFailure: (payload) => { dispatch(updateUserFailure(payload)) },
+    updateUserPending: () => { dispatch(updateUserPending()) }
   }
 }
 

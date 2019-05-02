@@ -1,44 +1,66 @@
 import React, { Component } from 'react'
 
-const BackendList = (props) => (
-	<ol>
-		{
-			props.items.map((item, index) => {
-				return (
-					<li key={index}>
-					  {/* < EditableList item={item}/> */}
-						{item.name}
-						<button onClick={props.handleDelete(item.id)}>
-							X
-            </button>
-						<button>
-							Edit
-            </button>
-					</li>
-				)
-			})
-		}
-	</ol>
-)
 
-// class EditableList extends Component{
-	
+class BackendList extends Component {
+  constructor(props) {
+    super(props)  
+    this.state = {
+      term : ''
+    }  
+  };
 
-// 	render(){
-// 		return (
-//         <div>
-// 					{item.name}
-// 						<button onClick={props.handleDelete(item.id)}>
-// 							X
-//             </button>
-// 						<button>
-// 							Edit
-//             </button>
-// 				</div>
-// 		)
-// 	}
+  onChange = (event) => {
+    this.setState({ term: event.target.value })    
+    console.log("Value Changed",this.state.term);
+  }
 
-	
-// } 
+
+
+  render() {
+    return (
+      <ol>
+        {
+          this.props.items.map((item, index) => {
+            return (
+              <li key={index}>
+                {
+                  (this.props.editId === item.id) ?
+                    <div>
+                      <form onSubmit={this.props.onSubmit({updatedValue : this.state.term, id:item.id})}>
+                        <input 
+                          onChange={this.onChange} />
+                        <button 
+                        onClick={this.props.onSubmit({updatedValue : this.state.term, id:item.id})}>
+                          Submit Changes
+				              </button>
+                       {}
+                      </form>
+                      <button onClick={this.props.handleDelete(item.id)}>
+                        X
+                       </button >
+                      <button onClick={this.props.handleEdit(item.id)}  >
+                        Edit
+                      </button></div>
+                    :
+                    <div>
+                      {item.name}
+                      <button onClick={this.props.handleDelete(item.id)}>
+                        X
+                      </button >
+                      <button onClick={this.props.handleEdit(item.id)}  >
+                        Edit
+                      </button>
+                    </div>
+
+                }
+
+              </li>
+            )
+          })
+        }
+      </ol>
+    )
+  }
+}
 
 export default BackendList

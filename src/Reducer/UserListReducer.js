@@ -7,7 +7,10 @@ import {
   FETCH_DELETE_USER_PENDING,
   FETCH_CREATE_USER_FAILURE,
   FETCH_CREATE_USER_SUCCESS,
-  FETCH_CREATE_USER_PENDING
+  FETCH_CREATE_USER_PENDING,
+  UPDATE_USER_FAILURE,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_PENDING
 } from '../Constants/Constants'
 
 const initialState = {
@@ -15,7 +18,10 @@ const initialState = {
   isPending: false,
   errorMessage: '',
   list: null,
-  result: ''
+  result: '',
+  updateStatus: '',
+  updateIspending : false,
+  updateErrorMessage : ''
 }
 
 function userListReducer(state = initialState, action) {
@@ -72,6 +78,22 @@ function userListReducer(state = initialState, action) {
         result: 'Fetching from Database',
         isPending: false
       }
+    case UPDATE_USER_FAILURE: 
+      return{
+        updateStatus : 'FAILED',
+        updateIspending : false,
+        updateErrorMessage : 'UPDATE ERROR : '+action.payload.error
+    }
+    case UPDATE_USER_PENDING: 
+      return {
+        updateStatus : 'PENDING',
+        updateIspending :true
+    }
+    case UPDATE_USER_SUCCESS: 
+      return{
+        updateStatus : 'SUCCESS',
+        updateIspending : false
+    }
     default:
       return state
   }

@@ -15,13 +15,15 @@ export const FETCH_DELETE_USER_PENDING = 'FETCH_DELETE_USER_PENDING'
 export const FETCH_CREATE_USER_SUCCESS = 'FETCH_CREATE_USER_SUCCESS'
 export const FETCH_CREATE_USER_FAILURE = 'FETCH_CREATE_USER_FAILURE'
 export const FETCH_CREATE_USER_PENDING = 'FETCH_CREATE_USER_PENDING'
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS'
+export const UPDATE_USER_FAILURE = 'UPDATE_USER_SUCCESS'
+export const UPDATE_USER_PENDING = 'UPDATE_USER_SUCCESS' 
 
 // TO BE ADDEDIN CONFIGURATION FILE ONLY TEMPORARY ADDITION TO THIS FILE
 export const API_LINK =
   'https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole'
 
-export const USERS_BACKEND =
-  'http://localhost:9000/user-list/'
+export const USERS_BACKEND =  'http://localhost:9000/user-list/'
 
 export const CREATE_TODO_ITEM =
 'http://localhost:9000/todo-items/'
