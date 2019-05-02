@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
-  CREATE_USER
+  USERS_BACKEND
 } from '../Constants/Constants'
 import {
   createUserFailure,
@@ -26,11 +26,11 @@ class CreateUser extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     debugger
-    this.createItems();
+    this.createUser();
   }
 
-  createItems() {
-    fetch(CREATE_USER, {
+  createUser() {
+    fetch(USERS_BACKEND, {
       mode: 'no-cors',
       method: 'POST',
       headers: {
@@ -52,8 +52,10 @@ class CreateUser extends Component {
             <input value={this.state.term} onChange={this.onChange} />
             <button onClick={this.onSubmit}>Submit</button>
           </form>
-          <p1>{this.props.result}</p1>
         </form>
+        <div>
+          <p>{this.props.result}</p>
+        </div>
       </div>
     )
   }

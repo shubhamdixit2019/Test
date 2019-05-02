@@ -23,8 +23,5 @@ export const API_LINK =
 export const USERS_BACKEND =
   'http://localhost:9000/user-list/'
 
-export const CREATE_USER =
-'http://localhost:9000/create-user/'
-
 export const CREATE_TODO_ITEM =
 'http://localhost:9000/todo-items/'

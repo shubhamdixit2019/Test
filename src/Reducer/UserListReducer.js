@@ -56,7 +56,7 @@ function userListReducer(state = initialState, action) {
         errorMessage: 'Database fetch error : ' + (action.payload.error) +
           ' encountered'
       }
-    case FETCH_CREATE_USER_SUCCESS:
+    case FETCH_CREATE_USER_SUCCESS:         
       return {
         result: 'SUCCESS: User created',
         isPending: false
