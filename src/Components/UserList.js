@@ -13,12 +13,15 @@ import {
   updateUserPending
 } from '../Actions/DisplayAPIAction'
 import BackendList from './BackendList';
+import CreateUser from './CreateUser'
 
 class UserList extends Component {
 constructor(){
   super();
   this.state={
-    editId : null,    
+    editId : null, 
+    reRender : '', 
+    
   }
 }
 
@@ -34,8 +37,7 @@ constructor(){
 
   componentDidMount() {
     this.props.fetchListRequest();
-    this.getData();
-    
+    this.getData();    
   }
 
   deleteItems(id) {
@@ -62,10 +64,12 @@ constructor(){
       },
       body: `name=${data.updatedValue}&id=${data.id}`,
     }).then((res) => {
-      (res.ok )
-      ?this.props.updateUserSuccess()
+      // console.log("res.ok====>",res.ok )
+      (res.ok && res.status === 200)
+      ?this.props.updateUserSuccess({id : data.id, name : data.updatedValue})
       :this.props.updateUserFailure({error : res.status})
-    }).catch((err) => this.props.updateUserFailure({error : err}))
+    })
+    .catch((err) => this.props.updateUserFailure({error : err}))
   }
 
   handleEdit = id => event => {
@@ -78,17 +82,25 @@ constructor(){
   handleDelete = id => event => {
     event.preventDefault();
     this.deleteItems(id);
+    
   }
 
-  onSubmit = data => event => {
-    event.preventDefault(); 
-    this.updateItems(data);  
+  
 
+   onSubmit = data => event => {
+    event.preventDefault(); 
+    this.updateItems(data); 
+    this.setState({
+      editId : null
+    })    
   }
 
   render() {
+    console.log("this.props.list",this.props.list)
     return (
       <div className='App' >
+        <CreateUser  />
+        {this.reRender}
         {
           this.props.list ?
             <BackendList items={this.props.list} editId = {this.state.editId}
@@ -96,11 +108,11 @@ constructor(){
               onSubmit={this.onSubmit}/>
             : <h1>{this.props.status}</h1>
         }
-         <div>
-            {
-              <p>{this.props.updateStatus}</p>
-            }
-         </div>
+        {
+          (this.props.updateIspending)?
+          <p>PENDING</p>
+          : <p>{this.props.updateStatus}{ this.props.updateErrorMessage}</p>
+        }       
       </div>
     )
   }
@@ -124,7 +136,7 @@ const mapDispatchToProps = dispatch => {
     deleteUserSuccess: (payload) => { dispatch(deleteUserSuccess(payload)) },
     deleteUserFailure: (payload) => { dispatch(deleteUserFailure(payload)) },
     deleteUserPending: () => { dispatch(deleteUserPending()) },
-    updateUserSuccess: () => { dispatch(updateUserSuccess()) },
+    updateUserSuccess: (payload) => { dispatch(updateUserSuccess(payload)) },
     updateUserFailure: (payload) => { dispatch(updateUserFailure(payload)) },
     updateUserPending: () => { dispatch(updateUserPending()) }
   }

@@ -19,9 +19,11 @@ const initialState = {
   errorMessage: '',
   list: null,
   result: '',
+  isCreatePending : false,
+  createErrorMesssage : '',
   updateStatus: '',
-  updateIspending : false,
-  updateErrorMessage : ''
+  updateIspending: false,
+  updateErrorMessage: ''
 }
 
 function userListReducer(state = initialState, action) {
@@ -62,38 +64,48 @@ function userListReducer(state = initialState, action) {
         errorMessage: 'Database fetch error : ' + (action.payload.error) +
           ' encountered'
       }
-    case FETCH_CREATE_USER_SUCCESS:         
+    case FETCH_CREATE_USER_SUCCESS:
       return {
         result: 'SUCCESS: User created',
-        isPending: false
+        isCreatePending: false
       }
     case FETCH_CREATE_USER_FAILURE:
       return {
         result: 'FAILED',
-        isPending: false,
-        errorMessage: 'Database fetch error : ' + (action.payload.error) + ' encountered'
+        isCreatePending: false,
+        createErrorMesssage: 'Database fetch error : ' + (action.payload.error) + ' encountered'
       }
     case FETCH_CREATE_USER_PENDING:
       return {
         result: 'Fetching from Database',
         isPending: false
       }
-    case UPDATE_USER_FAILURE: 
-      return{
-        updateStatus : 'FAILED',
-        updateIspending : false,
-        updateErrorMessage : 'UPDATE ERROR : '+action.payload.error
-    }
-    case UPDATE_USER_PENDING: 
+    case UPDATE_USER_FAILURE:
       return {
-        updateStatus : 'PENDING',
-        updateIspending :true
-    }
-    case UPDATE_USER_SUCCESS: 
-      return{
-        updateStatus : 'SUCCESS',
-        updateIspending : false
-    }
+        updateStatus: 'FAILED',
+        updateIspending: false,
+        updateErrorMessage: 'UPDATE ERROR : ' + action.payload.error
+      }
+    case UPDATE_USER_PENDING:
+      return {
+        updateStatus: 'PENDING',
+        updateIspending: true
+      }
+    case UPDATE_USER_SUCCESS:
+      const filterlist = state.list.map(function (item) {
+        if ((action.payload.id === item.id)) {
+          item.name = action.payload.name
+          return item
+        }
+        else {
+          return item;
+        }
+      })
+      return {
+        updateStatus: 'Updated Successfully',
+        updateIspending: false,
+        list: filterlist
+      }
     default:
       return state
   }

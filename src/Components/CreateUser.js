@@ -24,9 +24,8 @@ class CreateUser extends Component {
   }
 
   onSubmit = (event) => {
-    event.preventDefault();
-    debugger
-    this.createUser();
+    event.preventDefault();    
+    this.createUser();    
   }
 
   createUser() {
@@ -40,7 +39,8 @@ class CreateUser extends Component {
     }).then((res) => {
       (res.ok && res.status === 200) ? createUserSuccess() :
         createUserFailure({ error: res.status })
-    }).catch((err) => createUserFailure({ error: err }))
+    })
+    .catch((err) => createUserFailure({ error: err }))
   }
 
   render() {
@@ -54,7 +54,9 @@ class CreateUser extends Component {
           </form>
         </form>
         <div>
-          <p>{this.props.result}</p>
+          {
+            
+          }
         </div>
       </div>
     )
