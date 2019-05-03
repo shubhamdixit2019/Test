@@ -24,6 +24,13 @@ class AddTodo extends React.Component {
     this.callAPI();
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.term !== nextState.term ) {
+      return true;
+    }
+    return false;
+  }
+
   onChange = (event) => {
     this.setState({ term: event.target.value })
   }

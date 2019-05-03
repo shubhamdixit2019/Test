@@ -13,15 +13,12 @@ import {
   updateUserPending
 } from '../Actions/DisplayAPIAction'
 import BackendList from './BackendList';
-import CreateUser from './CreateUser'
 
 class UserList extends Component {
 constructor(){
   super();
   this.state={
-    editId : null, 
-    reRender : '', 
-    
+    editId : null,     
   }
 }
 
@@ -64,7 +61,6 @@ constructor(){
       },
       body: `name=${data.updatedValue}&id=${data.id}`,
     }).then((res) => {
-      // console.log("res.ok====>",res.ok )
       (res.ok && res.status === 200)
       ?this.props.updateUserSuccess({id : data.id, name : data.updatedValue})
       :this.props.updateUserFailure({error : res.status})
@@ -83,9 +79,7 @@ constructor(){
     event.preventDefault();
     this.deleteItems(id);
     
-  }
-
-  
+  }  
 
    onSubmit = data => event => {
     event.preventDefault(); 
@@ -98,9 +92,7 @@ constructor(){
   render() {
     console.log("this.props.list",this.props.list)
     return (
-      <div className='App' >
-        <CreateUser  />
-        {this.reRender}
+      <div className='App' >             
         {
           this.props.list ?
             <BackendList items={this.props.list} editId = {this.state.editId}

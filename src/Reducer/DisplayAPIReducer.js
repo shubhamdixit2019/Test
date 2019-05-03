@@ -12,7 +12,7 @@ const initialState = {
   list: []
 }
 
-function displayAPIReducer(state = initialState, action) {
+function displayAPIReducer (state = initialState, action) {
   switch (action.type) {
     case FETCH_LIST_REQUEST:
       return {

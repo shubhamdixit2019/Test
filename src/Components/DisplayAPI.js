@@ -8,37 +8,31 @@ import {
 } from '../Actions/DisplayAPIAction'
 
 class DisplayAPI extends Component {
-  constructor() {
+  constructor () {
     super()
     this.state = {
       data: null
     }
   }
 
-  getData() {
+  getData () {
     fetch(API_LINK)
-      .then((Response) => {
-        Response.json()
-          .then((findresponse) => {
-            this.setState({ data: findresponse })
+      .then((res) => {
+        res.json()
+          .then((response) => {            
+            this.props.fetchListSuccess(response)
           })
           .catch(() => this.props.fetchListFailure('ERROR ENCOUNTERED'))
       })
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.props.fetchListRequest('Please Wait...Data Loading...')
     this.getData()
   }
 
-  passDataToReducer() {
-    if (this.state.data != null) {
-      this.props.fetchListSuccess(this.state.data)
-    }
-  }
-
-  render() {
-    this.passDataToReducer()
+  render () {
+    
     return (
       <div className='App' >
         {
@@ -64,7 +58,7 @@ class DisplayAPI extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     data: state.displayAPI.data,
     status: state.displayAPI.status

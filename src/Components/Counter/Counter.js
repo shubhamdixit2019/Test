@@ -9,7 +9,7 @@ import {
 import '../../App.css'
 
 class Counter extends React.Component {
-  render() {
+  render () {
     return (
       <div className='App'>
         <h2>Counter</h2>
@@ -23,7 +23,7 @@ class Counter extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   // Object comes up!
   return {
     count: state.count.count

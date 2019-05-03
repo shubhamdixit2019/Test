@@ -10,23 +10,26 @@ import {
   FETCH_CREATE_USER_PENDING,
   UPDATE_USER_FAILURE,
   UPDATE_USER_SUCCESS,
-  UPDATE_USER_PENDING
+  UPDATE_USER_PENDING,
+  SUCCESS,
+  FAILURE,
+  FOLLOWING_ERROR_ENCOUNTERED
 } from '../Constants/Constants'
 
 const initialState = {
+  list: null,
   status: '',
   isPending: false,
   errorMessage: '',
-  list: null,
   result: '',
-  isCreatePending : false,
-  createErrorMesssage : '',
+  isCreatePending: false,
+  createErrorMesssage: '',
   updateStatus: '',
   updateIspending: false,
   updateErrorMessage: ''
 }
 
-function userListReducer(state = initialState, action) {
+function userListReducer (state = initialState, action) {
   switch (action.type) {
     case FETCH_LIST_REQUEST:
       return {
@@ -35,21 +38,23 @@ function userListReducer(state = initialState, action) {
       }
     case FETCH_LIST_FAILURE:
       return {
-        errorMessage: ('Following Error Encountered ' + action.payload.error),
+        errorMessage:
+          (FOLLOWING_ERROR_ENCOUNTERED + action.payload.error),
         isPending: false,
-        status: 'FAILED'
+        status: FAILURE
       }
     case FETCH_LIST_SUCCESS:
       return {
         list: action.payload.list,
         isPending: false,
-        status: 'SUCCESS'
+        status: SUCCESS
       }
     case FETCH_DELETE_USER_SUCCESS:
       const t = {
-        status: 'SUCCESS',
+        status: SUCCESS,
         isPending: false,
-        list: [...state.list].filter((item) => item.id !== action.payload.id)
+        list:
+          [...state.list].filter((item) => item.id !== action.payload.id)
       }
       return t
     case FETCH_DELETE_USER_PENDING:
@@ -59,21 +64,22 @@ function userListReducer(state = initialState, action) {
       }
     case FETCH_DELETE_USER_FAILURE:
       return {
-        status: 'FAILED',
+        status: FAILURE,
         isPending: false,
-        errorMessage: 'Database fetch error : ' + (action.payload.error) +
-          ' encountered'
+        errorMessage:
+          'Database fetch error : ' + (action.payload.error) + ' encountered'
       }
     case FETCH_CREATE_USER_SUCCESS:
       return {
-        result: 'SUCCESS: User created',
+        result: SUCCESS + ' : User created',
         isCreatePending: false
       }
     case FETCH_CREATE_USER_FAILURE:
       return {
-        result: 'FAILED',
+        result: FAILURE,
         isCreatePending: false,
-        createErrorMesssage: 'Database fetch error : ' + (action.payload.error) + ' encountered'
+        createErrorMesssage: 'Database fetch error : ' +
+          (action.payload.error) + ' encountered'
       }
     case FETCH_CREATE_USER_PENDING:
       return {
@@ -82,7 +88,7 @@ function userListReducer(state = initialState, action) {
       }
     case UPDATE_USER_FAILURE:
       return {
-        updateStatus: 'FAILED',
+        updateStatus: FAILURE,
         updateIspending: false,
         updateErrorMessage: 'UPDATE ERROR : ' + action.payload.error
       }
@@ -96,9 +102,8 @@ function userListReducer(state = initialState, action) {
         if ((action.payload.id === item.id)) {
           item.name = action.payload.name
           return item
-        }
-        else {
-          return item;
+        } else {
+          return item
         }
       })
       return {

@@ -23,9 +23,16 @@ class CreateUser extends Component {
     })
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.term !== nextState.term) {
+      return true;
+    }
+    return false;
+  }
+
   onSubmit = (event) => {
-    event.preventDefault();    
-    this.createUser();    
+    event.preventDefault();
+    this.createUser();
   }
 
   createUser() {
@@ -37,14 +44,14 @@ class CreateUser extends Component {
       },
       body: `name=${this.state.term}`
     }).then((res) => {
-      (res.ok && res.status === 200) ? createUserSuccess() :
-        createUserFailure({ error: res.status })
+      (res.ok && res.status === 200)
+        ? createUserSuccess()
+        : createUserFailure({ error: res.status })
     })
-    .catch((err) => createUserFailure({ error: err }))
+      .catch((err) => createUserFailure({ error: err }))
   }
 
   render() {
-
     return (
       <div className='App' >
         <form>
@@ -55,7 +62,8 @@ class CreateUser extends Component {
         </form>
         <div>
           {
-            
+            <p> {this.props.result} {this.props.isCreatePending}
+             {this.props.createErrorMesssage}</p>
           }
         </div>
       </div>
@@ -65,7 +73,9 @@ class CreateUser extends Component {
 
 function mapStateToProps(state) {
   return {
-    result: state.userList.result
+    result: state.userList.result,
+    isCreatePending : state.userList.isCreatePending,
+    createErrorMesssage : state.userList.createErrorMesssage
   }
 }
 

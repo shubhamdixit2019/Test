@@ -11,7 +11,7 @@ const initialState = {
   searchWordApp: ''
 }
 
-function todoReducer(state = initialState, action) {
+function todoReducer (state = initialState, action) {
   switch (action.type) {
     case ADD_TODO:
       return {
@@ -28,9 +28,6 @@ function todoReducer(state = initialState, action) {
         searchWordApp: action.payload.searchWord
       }
     case REMOVE_TODO:
-      // new reference created as the previous splice method
-      // assigned to he same state.items
-      // was giving same things to it
       const filteredItems =
         state.items.filter((item, index) => index !== action.payload.index)
       return {

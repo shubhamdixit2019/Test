@@ -7,7 +7,7 @@ import UserList from './Components/UserList'
 import CreateUser from './Components/CreateUser'
 import './App.css'
 
-export function RouteInitial() {
+export function RouteInitial () {
   return (
     <Switch>
       <Route exact path='/' component={MainContainer} />
@@ -18,14 +18,14 @@ export function RouteInitial() {
   )
 }
 
-function userList() {
+function userList () {
   return <UserList />
 }
 
-function createUser() {
+function createUser () {
   return <CreateUser />
 }
 
-function lists() {
+function lists () {
   return <DisplayAPI />
 }

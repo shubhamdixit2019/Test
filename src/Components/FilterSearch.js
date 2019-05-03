@@ -16,6 +16,13 @@ class FilterSearch extends React.Component {
 		this.setState({ searchWord: event.target.value });
 	}
 
+	shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.searchWord !== nextState.searchWord) {
+      return true;
+    }
+    return false;
+  }
+
 	handleSearch = (searchWord) => event => {
 		event.preventDefault();
 		debugger

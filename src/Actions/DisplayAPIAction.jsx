@@ -41,11 +41,10 @@ export const createUserFailure =
   (payload) => ({ type: FETCH_CREATE_USER_FAILURE, payload })
 
 export const updateUserSuccess =
-  (payload) => ({ type: UPDATE_USER_SUCCESS, payload})
+  (payload) => ({ type: UPDATE_USER_SUCCESS, payload })
 
 export const updateUserPending =
   () => ({ type: UPDATE_USER_PENDING })
 
 export const updateUserFailure =
   (payload) => ({ type: UPDATE_USER_FAILURE, payload })
-  

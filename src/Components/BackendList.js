@@ -3,18 +3,15 @@ import React, { Component } from 'react'
 
 class BackendList extends Component {
   constructor(props) {
-    super(props)  
+    super(props)
     this.state = {
-      term : ''
-    }  
+      term: ''
+    }
   };
 
   onChange = (event) => {
-    this.setState({ term: event.target.value })    
-    console.log("Value Changed",this.state.term);
+    this.setState({ term: event.target.value })
   }
-
-
 
   render() {
     return (
@@ -22,18 +19,26 @@ class BackendList extends Component {
         {
           this.props.items.map((item, index) => {
             return (
-              <li key={index}>
+              <li key={item.id}>   {/* previously key={index} but changed
+              for code optimisation */}
                 {
                   (this.props.editId === item.id) ?
                     <div>
-                      <form onSubmit={this.props.onSubmit({updatedValue : this.state.term, id:item.id})}>
-                        <input 
+                      <form onSubmit=
+                        {this.props.onSubmit(
+                          {
+                            updatedValue: this.state.term, id: item.id
+                          })}>
+                        <input
                           onChange={this.onChange} />
-                        <button 
-                        onClick={this.props.onSubmit({updatedValue : this.state.term, id:item.id})}>
+                        <button
+                          onClick={
+                            this.props.onSubmit(
+                              {
+                                updatedValue: this.state.term, id: item.id
+                              })}>
                           Submit Changes
-				              </button>
-                       {}
+				                </button>
                       </form>
                       <button onClick={this.props.handleDelete(item.id)}>
                         X
@@ -51,9 +56,7 @@ class BackendList extends Component {
                         Edit
                       </button>
                     </div>
-
                 }
-
               </li>
             )
           })
