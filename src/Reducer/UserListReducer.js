@@ -1,7 +1,7 @@
 import {
-  FETCH_LIST_REQUEST,
-  FETCH_LIST_FAILURE,
-  FETCH_LIST_SUCCESS,
+  FETCH_LIST_USER_FAILURE,
+  FETCH_LIST_USER_REQUEST,
+  FETCH_LIST_USER_SUCCESS,
   FETCH_DELETE_USER_SUCCESS,
   FETCH_DELETE_USER_FAILURE,
   FETCH_DELETE_USER_PENDING,
@@ -31,19 +31,19 @@ const initialState = {
 
 function userListReducer (state = initialState, action) {
   switch (action.type) {
-    case FETCH_LIST_REQUEST:
+    case FETCH_LIST_USER_REQUEST:
       return {
         status: 'Please Wait.... Data Loading',
         isPending: true
       }
-    case FETCH_LIST_FAILURE:
+    case FETCH_LIST_USER_FAILURE:
       return {
         errorMessage:
           (FOLLOWING_ERROR_ENCOUNTERED + action.payload.error),
         isPending: false,
         status: FAILURE
       }
-    case FETCH_LIST_SUCCESS:
+    case FETCH_LIST_USER_SUCCESS:
       return {
         list: action.payload.list,
         isPending: false,

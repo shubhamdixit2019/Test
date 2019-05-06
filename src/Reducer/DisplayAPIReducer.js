@@ -16,15 +16,15 @@ function displayAPIReducer (state = initialState, action) {
   switch (action.type) {
     case FETCH_LIST_REQUEST:
       return {
-        status: action.payload
+        status: 'PLEASE WAIT...DATA LOADING...'
       }
     case FETCH_LIST_FAILURE:
       return {
-        status: action.payload
+        status: action.payload.error
       }
     case FETCH_LIST_SUCCESS:
       return {
-        data: action.payload
+        data: action.payload.items
       }
     default:
       return state

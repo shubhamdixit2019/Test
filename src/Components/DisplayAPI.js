@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { API_LINK } from '../Constants/Constants'
 import {
   fetchListSuccess,
   fetchListRequest,
@@ -15,24 +14,15 @@ class DisplayAPI extends Component {
     }
   }
 
-  getData () {
-    fetch(API_LINK)
-      .then((res) => {
-        res.json()
-          .then((response) => {            
-            this.props.fetchListSuccess(response)
-          })
-          .catch(() => this.props.fetchListFailure('ERROR ENCOUNTERED'))
-      })
-  }
-
   componentDidMount () {
     this.props.fetchListRequest('Please Wait...Data Loading...')
-    this.getData()
+  }
+
+  callAPI () {
+    this.props.fetchListRequest('Please Wait...Data Loading...')
   }
 
   render () {
-    
     return (
       <div className='App' >
         {
@@ -68,7 +58,7 @@ function mapStateToProps (state) {
 const mapDispatchToProps = dispatch => {
   return {
     fetchListSuccess: (payload) => { dispatch(fetchListSuccess(payload)) },
-    fetchListRequest: (payload) => { dispatch(fetchListRequest(payload)) },
+    fetchListRequest: () => { dispatch(fetchListRequest()) },
     fetchListFailure: (payload) => { dispatch(fetchListFailure(payload)) }
   }
 }

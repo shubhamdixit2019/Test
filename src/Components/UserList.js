@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { USERS_BACKEND } from '../Constants/Constants'
 import {
-  fetchListSuccess,
-  fetchListRequest,
-  fetchListFailure,
+  fetchListUserSuccess,
+  fetchListUserRequest,
+  fetchListUserFailure,
   deleteUserFailure,
   deleteUserPending,
   deleteUserSuccess,
@@ -22,19 +22,8 @@ constructor(){
   }
 }
 
-  getData() {
-    fetch(USERS_BACKEND)
-      .then((response) => {
-        response.json()
-          .then((res) => {
-            this.props.fetchListSuccess({ list: res })
-          }).catch((err) => this.props.fetchListFailure({ error: err }))
-      })
-  }
-
   componentDidMount() {
-    this.props.fetchListRequest();
-    this.getData();    
+    this.props.fetchListUserRequest();  
   }
 
   deleteItems(id) {
@@ -90,7 +79,6 @@ constructor(){
   }
 
   render() {
-    console.log("this.props.list",this.props.list)
     return (
       <div className='App' >             
         {
@@ -122,9 +110,9 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchListSuccess: (payload) => { dispatch(fetchListSuccess(payload)) },
-    fetchListRequest: () => { dispatch(fetchListRequest()) },
-    fetchListFailure: (payload) => { dispatch(fetchListFailure(payload)) },
+    fetchListUserSuccess: (payload) => { dispatch(fetchListUserSuccess(payload)) },
+    fetchListUserRequest: () => { dispatch(fetchListUserRequest()) },
+    fetchListUserFailure: (payload) => { dispatch(fetchListUserFailure(payload)) },
     deleteUserSuccess: (payload) => { dispatch(deleteUserSuccess(payload)) },
     deleteUserFailure: (payload) => { dispatch(deleteUserFailure(payload)) },
     deleteUserPending: () => { dispatch(deleteUserPending()) },
