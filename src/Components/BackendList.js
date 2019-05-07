@@ -14,10 +14,12 @@ class BackendList extends Component {
   }
 
   render() {
+    
+    let items = this.props.items || []
     return (
       <ol>
         {
-          this.props.items.map((item, index) => {
+          items.map((item, index) => {
             return (
               <li key={item.id}>   {/* previously key={index} but changed
               for code optimisation */}

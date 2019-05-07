@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
-  USERS_BACKEND
-} from '../Constants/Constants'
-import {
   createUserFailure,
   createUserPending,
   createUserSuccess
@@ -13,7 +10,7 @@ class CreateUser extends Component {
   constructor() {
     super()
     this.state = {
-      term: null
+      term: ''
     }
   }
 
@@ -30,42 +27,25 @@ class CreateUser extends Component {
     return false;
   }
 
-  onSubmit = (event) => {
+  onSubmit = (event) => {    
     event.preventDefault();
-    this.createUser();
+    console.log("iNside submit")
+    this.props.createUserPending(this.state.term);
   }
 
-  createUser() {
-    fetch(USERS_BACKEND, {
-      mode: 'no-cors',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: `name=${this.state.term}`
-    }).then((res) => {
-      (res.ok && res.status === 200)
-        ? createUserSuccess()
-        : createUserFailure({ error: res.status })
-    })
-      .catch((err) => createUserFailure({ error: err }))
-  }
 
   render() {
     return (
-      <div className='App' >
-        <form>
+      <div className='App' >        
           <form onSubmit={this.onSubmit}>
             <input value={this.state.term} onChange={this.onChange} />
-            <button onClick={this.onSubmit}>Submit</button>
-          </form>
-        </form>
-        <div>
-          {
-            <p> {this.props.result} {this.props.isCreatePending}
-             {this.props.createErrorMesssage}</p>
-          }
-        </div>
+            <button onClick={this.onSubmit}>Submit</button>  
+            <p>{this.props.isCreatePending} {this.props.createErrorMesssage}
+            {this.props.result}</p>            {
+                
+            }
+                   
+        </form>             
       </div>
     )
   }
@@ -82,7 +62,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => {
   return {
     createUserSuccess: () => { dispatch(createUserSuccess()) },
-    createUserPending: () => { dispatch(createUserPending()) },
+    createUserPending: (payload) => { dispatch(createUserPending(payload)) },
     createUserFailure: (payload) => { dispatch(createUserFailure(payload)) }
   }
 }

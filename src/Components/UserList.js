@@ -26,20 +26,20 @@ constructor(){
     this.props.fetchListUserRequest();  
   }
 
-  deleteItems(id) {
-    fetch(USERS_BACKEND, {
-      mode: 'cors',
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: `id=${id}`,
-    }).then((res) => {
-      (res.ok && res.status === 200)
-        ? this.props.deleteUserSuccess({ id: id })
-        : this.props.deleteUserFailure({ error: res.status })
-    }).catch((err) => this.props.deleteUserFailure({ error: err }));
-  }
+  // deleteItems(id) {
+  //   fetch(USERS_BACKEND, {
+  //     mode: 'cors',
+  //     method: 'DELETE',
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded'
+  //     },
+  //     body: `id=${id}`,
+  //   }).then((res) => {
+  //     (res.ok && res.status === 200)
+  //       ? this.props.deleteUserSuccess({ id: id })
+  //       : this.props.deleteUserFailure({ error: res.status })
+  //   }).catch((err) => this.props.deleteUserFailure({ error: err }));
+  // }
 
   updateItems(data) {
     fetch(USERS_BACKEND, {
@@ -66,19 +66,20 @@ constructor(){
 
   handleDelete = id => event => {
     event.preventDefault();
-    this.deleteItems(id);
-    
+    this.props.deleteUserPending({id : id , list : this.props.list})
   }  
 
    onSubmit = data => event => {
     event.preventDefault(); 
     this.updateItems(data); 
+    //this.props.updateUserPending(data)
     this.setState({
       editId : null
     })    
   }
 
   render() {
+
     return (
       <div className='App' >             
         {
@@ -87,12 +88,7 @@ constructor(){
               handleDelete={this.handleDelete} handleEdit={this.handleEdit} 
               onSubmit={this.onSubmit}/>
             : <h1>{this.props.status}</h1>
-        }
-        {
-          (this.props.updateIspending)?
-          <p>PENDING</p>
-          : <p>{this.props.updateStatus}{ this.props.updateErrorMessage}</p>
-        }       
+        }             
       </div>
     )
   }
@@ -115,10 +111,10 @@ const mapDispatchToProps = dispatch => {
     fetchListUserFailure: (payload) => { dispatch(fetchListUserFailure(payload)) },
     deleteUserSuccess: (payload) => { dispatch(deleteUserSuccess(payload)) },
     deleteUserFailure: (payload) => { dispatch(deleteUserFailure(payload)) },
-    deleteUserPending: () => { dispatch(deleteUserPending()) },
+    deleteUserPending: (payload) => { dispatch(deleteUserPending(payload)) },
     updateUserSuccess: (payload) => { dispatch(updateUserSuccess(payload)) },
     updateUserFailure: (payload) => { dispatch(updateUserFailure(payload)) },
-    updateUserPending: () => { dispatch(updateUserPending()) }
+    updateUserPending: (payload) => { dispatch(updateUserPending(payload)) }
   }
 }
 

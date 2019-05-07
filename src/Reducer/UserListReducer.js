@@ -29,7 +29,7 @@ const initialState = {
   updateErrorMessage: ''
 }
 
-function userListReducer (state = initialState, action) {
+function userListReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_LIST_USER_REQUEST:
       return {
@@ -49,14 +49,13 @@ function userListReducer (state = initialState, action) {
         isPending: false,
         status: SUCCESS
       }
-    case FETCH_DELETE_USER_SUCCESS:
-      const t = {
+    case FETCH_DELETE_USER_SUCCESS:      
+        
+      return {
         status: SUCCESS,
         isPending: false,
-        list:
-          [...state.list].filter((item) => item.id !== action.payload.id)
+        list: [...state.list].filter((item) => item.id !== action.payload.id)
       }
-      return t
     case FETCH_DELETE_USER_PENDING:
       return {
         status: 'Fetching from Database',
@@ -64,14 +63,14 @@ function userListReducer (state = initialState, action) {
       }
     case FETCH_DELETE_USER_FAILURE:
       return {
-        status: FAILURE,
+        status: FAILURE+(action.payload.error),
         isPending: false,
         errorMessage:
           'Database fetch error : ' + (action.payload.error) + ' encountered'
       }
     case FETCH_CREATE_USER_SUCCESS:
       return {
-        result: SUCCESS + ' : User created',
+        result: (SUCCESS + ' : User created'),
         isCreatePending: false
       }
     case FETCH_CREATE_USER_FAILURE:
@@ -84,7 +83,7 @@ function userListReducer (state = initialState, action) {
     case FETCH_CREATE_USER_PENDING:
       return {
         result: 'Fetching from Database',
-        isPending: false
+        isCreatePending: true
       }
     case UPDATE_USER_FAILURE:
       return {
