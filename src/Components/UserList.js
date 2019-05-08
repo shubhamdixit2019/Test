@@ -79,12 +79,12 @@ constructor(){
   }
 
   render() {
-
+    const items = (this.props.list || []);
     return (
       <div className='App' >             
         {
-          this.props.list ?
-            <BackendList items={this.props.list} editId = {this.state.editId}
+          items ?
+            <BackendList items={items} editId = {this.state.editId}
               handleDelete={this.handleDelete} handleEdit={this.handleEdit} 
               onSubmit={this.onSubmit}/>
             : <h1>{this.props.status}</h1>

@@ -79,7 +79,7 @@ export function * watchDeleteUserFetchingSaga(){
 //USER UPDATE
 function * updateUserFetchingFlow (action) {
   try{ 
-    console.log("update action =========>",action)
+   
     TodoAPIHelper.updateUser()
     yield put(updateUserSuccess({id : action.payload.id,name : action.payload.name}))
   }catch(err){

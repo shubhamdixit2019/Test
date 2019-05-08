@@ -49,12 +49,14 @@ function userListReducer(state = initialState, action) {
         isPending: false,
         status: SUCCESS
       }
-    case FETCH_DELETE_USER_SUCCESS:      
-        
+    case FETCH_DELETE_USER_SUCCESS: 
+    const filterItems = 
+    action.payload.list.filter((item)=> item.id !== action.payload.id)     
+    console.log(filterItems)       
       return {
         status: SUCCESS,
         isPending: false,
-        list: [...state.list].filter((item) => item.id !== action.payload.id)
+        list: (action.payload.list).filter((item) => item.id !== action.payload.id)
       }
     case FETCH_DELETE_USER_PENDING:
       return {
