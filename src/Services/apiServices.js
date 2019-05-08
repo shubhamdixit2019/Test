@@ -8,7 +8,7 @@ export class TodoAPIHelper {
     return fetch(API_LINK).then(res => res.json())
   }
 
-  static getUsers = () => {    
+  static getUsers = () => {
     return fetch(USERS_BACKEND).then(res => res.json())
   }
 

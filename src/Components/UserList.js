@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { USERS_BACKEND } from '../Constants/Constants'
 import {
   fetchListUserSuccess,
   fetchListUserRequest,
@@ -15,80 +14,49 @@ import {
 import BackendList from './BackendList';
 
 class UserList extends Component {
-constructor(){
-  super();
-  this.state={
-    editId : null,     
+  constructor() {
+    super();
+    this.state = {
+      editId: null,
+    }
   }
-}
 
   componentDidMount() {
-    this.props.fetchListUserRequest();  
-  }
-
-  // deleteItems(id) {
-  //   fetch(USERS_BACKEND, {
-  //     mode: 'cors',
-  //     method: 'DELETE',
-  //     headers: {
-  //       'Content-Type': 'application/x-www-form-urlencoded'
-  //     },
-  //     body: `id=${id}`,
-  //   }).then((res) => {
-  //     (res.ok && res.status === 200)
-  //       ? this.props.deleteUserSuccess({ id: id })
-  //       : this.props.deleteUserFailure({ error: res.status })
-  //   }).catch((err) => this.props.deleteUserFailure({ error: err }));
-  // }
-
-  updateItems(data) {
-    fetch(USERS_BACKEND, {
-      mode: 'cors',
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: `name=${data.updatedValue}&id=${data.id}`,
-    }).then((res) => {
-      (res.ok && res.status === 200)
-      ?this.props.updateUserSuccess({id : data.id, name : data.updatedValue})
-      :this.props.updateUserFailure({error : res.status})
-    })
-    .catch((err) => this.props.updateUserFailure({error : err}))
+    this.props.fetchListUserRequest();
   }
 
   handleEdit = id => event => {
     event.preventDefault();
     this.setState({
-      editId : id
-    })  
+      editId: id
+    })
   }
 
   handleDelete = id => event => {
     event.preventDefault();
-    this.props.deleteUserPending({id : id , list : this.props.list})
-  }  
+    this.props.deleteUserPending({ id: id, list: this.props.list })
+  }
 
-   onSubmit = data => event => {
-    event.preventDefault(); 
-    this.updateItems(data); 
-    //this.props.updateUserPending(data)
+  onSubmit = data => event => {
+    //this is the onSubmit method of update funtionality
+    event.preventDefault();
+    this.props.updateUserPending({ list: this.props.list, data: data })
     this.setState({
-      editId : null
-    })    
+      editId: null
+    })
   }
 
   render() {
     const items = (this.props.list || []);
     return (
-      <div className='App' >             
+      <div className='App' >
         {
           items ?
-            <BackendList items={items} editId = {this.state.editId}
-              handleDelete={this.handleDelete} handleEdit={this.handleEdit} 
-              onSubmit={this.onSubmit}/>
+            <BackendList items={items} editId={this.state.editId}
+              handleDelete={this.handleDelete} handleEdit={this.handleEdit}
+              onSubmit={this.onSubmit} />
             : <h1>{this.props.status}</h1>
-        }             
+        }
       </div>
     )
   }
@@ -99,8 +67,8 @@ function mapStateToProps(state) {
     list: state.userList.list,
     status: state.userList.status,
     updateStatus: state.userList.updateStatus,
-    updateIspending : state.userList.updateIspending,
-    updateErrorMessage : state.userList.updateErrorMessage
+    updateIspending: state.userList.updateIspending,
+    updateErrorMessage: state.userList.updateErrorMessage
   }
 }
 

@@ -29,7 +29,7 @@ const initialState = {
   updateErrorMessage: ''
 }
 
-function userListReducer(state = initialState, action) {
+function userListReducer (state = initialState, action) {
   switch (action.type) {
     case FETCH_LIST_USER_REQUEST:
       return {
@@ -49,14 +49,13 @@ function userListReducer(state = initialState, action) {
         isPending: false,
         status: SUCCESS
       }
-    case FETCH_DELETE_USER_SUCCESS: 
-    const filterItems = 
-    action.payload.list.filter((item)=> item.id !== action.payload.id)     
-    console.log(filterItems)       
+    case FETCH_DELETE_USER_SUCCESS:
+      const filterItems =
+        action.payload.list.filter((item) => item.id !== action.payload.id)
       return {
         status: SUCCESS,
         isPending: false,
-        list: (action.payload.list).filter((item) => item.id !== action.payload.id)
+        list: filterItems
       }
     case FETCH_DELETE_USER_PENDING:
       return {
@@ -65,10 +64,11 @@ function userListReducer(state = initialState, action) {
       }
     case FETCH_DELETE_USER_FAILURE:
       return {
-        status: FAILURE+(action.payload.error),
+        status: FAILURE + (action.payload.error),
         isPending: false,
         errorMessage:
-          'Database fetch error : ' + (action.payload.error) + ' encountered'
+          'Database fetch error : ' + (action.payload.error) +
+          ' encountered'
       }
     case FETCH_CREATE_USER_SUCCESS:
       return {
@@ -99,7 +99,9 @@ function userListReducer(state = initialState, action) {
         updateIspending: true
       }
     case UPDATE_USER_SUCCESS:
-      const filterlist = state.list.map(function (item) {
+      // console.log("update reducer action.payload",action.payload)
+      // console.log("UPDATE REDUCER LIST : =====>",state.list)
+      const filterlist = action.payload.list.map(function (item) {
         if ((action.payload.id === item.id)) {
           item.name = action.payload.name
           return item
