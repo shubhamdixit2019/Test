@@ -11,7 +11,6 @@ import Counter from '../Components/Counter/Counter'
 class MainContainer extends Component {
   handleDelete = (index) => event => {
     event.preventDefault();
-
     this.props.remove({ index: index });
   }
 

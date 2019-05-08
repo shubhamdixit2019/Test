@@ -7,7 +7,7 @@ import {
 const initialState = {
   data: null,
   status: '',
-  isPending: false,
+  isPending: false, 
   errorMessage: '',
   list: []
 }
