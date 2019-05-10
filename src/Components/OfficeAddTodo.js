@@ -9,6 +9,7 @@ class OfficeAddTodo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
       term: '',
       apiResponse: ""
     };
@@ -54,6 +55,29 @@ class OfficeAddTodo extends React.Component {
             Submit
 				</button>
           <p>{this.state.apiResponse}</p>
+=======
+      term: ''
+    };
+  }
+
+  onChange = (event) => {    
+    this.setState({ term: event.target.value })    
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();    
+    this.props.officeaddTodo({ term: this.state.term });
+  }
+
+  render() {
+    return (
+      <div className="App">
+       <form onSubmit={this.onSubmit}>
+        <input value={this.state.term} onChange={this.onChange} />
+        <button onClick={this.onSubmit}>
+          Submit
+				</button>
+>>>>>>> aabd3c4f97563fd4bc4567f020372cbd4a48f6ae
         </form>
       </div>
     )

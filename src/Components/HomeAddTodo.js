@@ -13,6 +13,7 @@ class HomeAddTodo extends React.Component {
     };
   }
 
+<<<<<<< HEAD
   onChange = (event) => {
     this.setState({ term: event.target.value })
   }
@@ -24,15 +25,31 @@ class HomeAddTodo extends React.Component {
     {
     this.props.homeaddTodo({ term: this.state.term });
     }
+=======
+  onChange = (event) => {    
+    this.setState({ term: event.target.value })    
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();      
+    this.props.homeaddTodo({ term: this.state.term });
+>>>>>>> aabd3c4f97563fd4bc4567f020372cbd4a48f6ae
   }
 
   render() {
     return (
       <div className="App">
+<<<<<<< HEAD
         <form onSubmit={this.onSubmit}>
           <input value={this.state.term} onChange={this.onChange} />
           <button onClick={this.onSubmit}>
             Submit
+=======
+       <form onSubmit={this.onSubmit}>
+        <input value={this.state.term} onChange={this.onChange} />
+        <button onClick={this.onSubmit}>
+          Submit
+>>>>>>> aabd3c4f97563fd4bc4567f020372cbd4a48f6ae
 				</button>
         </form>
       </div>
